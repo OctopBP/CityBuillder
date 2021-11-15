@@ -5,10 +5,8 @@ namespace Octop.CityBuilderGame
 	public class CameraController : MonoBehaviour
 	{
 		[SerializeField] private InputController _inputController;
-		[SerializeField] private float _speed = 0.5f;
 		[SerializeField] private float _rotateSpeed = 100;
 
-		private Vector3 _targetPosition;
 		private Quaternion _targetRotation;
 
 		private void Start()
@@ -19,12 +17,6 @@ namespace Octop.CityBuilderGame
 		private void Update()
 		{
 			RotationHandler();
-			MoveToTarget();
-		}
-
-		private void MoveToTarget()
-		{
-			transform.position = Vector3.Lerp(transform.position, _targetPosition, _speed);
 		}
 
 		private void OnDestroy()
@@ -34,7 +26,7 @@ namespace Octop.CityBuilderGame
 
 		private void Drag(Vector3 position, Vector3 delta)
 		{
-			_targetPosition = transform.position - delta;
+			transform.position += delta;
 		}
 
 		private void RotationHandler()

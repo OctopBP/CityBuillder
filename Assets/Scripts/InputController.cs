@@ -35,22 +35,22 @@ namespace Octop.CityBuilderGame
 
 		private void HandleMouse()
 		{
-			Vector3 mousePosition = GetHitPoint();
-
 			if (Input.GetMouseButtonDown(0))
 			{
 				_clickTime = Time.time;
-				_clickPosition = mousePosition;
+				_clickPosition = GetHitPoint();
 				return;
 			}
 
 			if (Input.GetMouseButton(0))
 			{
-				Vector3 delta = mousePosition - _clickPosition;
-				OnDrag?.Invoke(mousePosition, delta);
-				_clickPosition = mousePosition;
+				Vector3 dif = GetHitPoint();
+				Vector3 delta = _clickPosition - dif;
+				OnDrag?.Invoke(_clickPosition, delta);
 				return;
 			}
+
+			Vector3 mousePosition = GetHitPoint();
 
 			if (Input.GetMouseButtonUp(0))
 			{
