@@ -38,6 +38,7 @@ namespace Octop.CityBuilderGame
 			_buildingActive = true;
 
 			_cityBuilder.StartBuilding();
+			_gridBuilder.UpdateCells(_buildings);
 
 			foreach (Building building in _buildings)
 				building.SetTransparant();
@@ -71,7 +72,7 @@ namespace Octop.CityBuilderGame
 			Building newBuilding = Instantiate(building, _buildingContainer);
 			newBuilding.SetupFrom(building);
 			_buildings.Add(newBuilding);
-			_gridBuilder.CalculateOccupiedCells(_buildings);
+			_gridBuilder.CalculateOccupiedCells(building);
 		}
 
 		private void CalculatePower()
@@ -82,7 +83,7 @@ namespace Octop.CityBuilderGame
 
 		private void OnPreviewMove(Building building)
 		{
-			bool canBuild = _gridBuilder.CanBuildAndUpdateCells(building, _buildings);
+			bool canBuild = _gridBuilder.CanBuild(building, _buildings);
 			_cityBuilder.CanBuild(canBuild);
 		}
 	}

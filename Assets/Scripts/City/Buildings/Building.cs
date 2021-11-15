@@ -22,15 +22,12 @@ namespace Octop.CityBuilderGame
 		{
 			Config = buildingConfig;
 
-			_model.localScale = new Vector3(
-				buildingConfig.sizeX * gameConfig.cellSize,
-				buildingConfig.height,
-				buildingConfig.sizeY * gameConfig.cellSize);
+			_model.localScale = new Vector3(buildingConfig.sizeX, buildingConfig.height, buildingConfig.sizeY) * gameConfig.cellSize;
 
 			_powerText.SetText($"{buildingConfig.power}");
 			_powerText.transform.localPosition = new Vector3(
 				x: buildingConfig.sizeX * gameConfig.cellSize / 2,
-				y: buildingConfig.height + _textOffset,
+				y: buildingConfig.height * gameConfig.cellSize + _textOffset,
 				z: buildingConfig.sizeY * gameConfig.cellSize / 2
 			);
 		}

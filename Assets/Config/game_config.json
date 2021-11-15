@@ -1,7 +1,7 @@
 {
-  "citySizeX": 24,
-  "citySizeY": 16,
-  "cellSize": 2,
+  "citySizeX": 48,
+  "citySizeY": 32,
+  "cellSize": 1,
   "buildings": [
     {
       "sizeX": 3,

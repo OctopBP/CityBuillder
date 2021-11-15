@@ -60,11 +60,13 @@ namespace Octop.CityBuilderGame
 				_buildingPreview = Instantiate(_buildingPrefab, this.transform);
 
 			_buildingPreview.Init(_gameConfig, randomConfig);
-			_buildingPreview.gameObject.SetActive(true);
+			_buildingPreview.gameObject.SetActive(false);
 		}
 
 		private void MoveBuildingPreview(Vector3 hitPoint)
 		{
+			_buildingPreview.gameObject.SetActive(true);
+
 			Vector2Int steeptPoint = new Vector2Int(
 				x: RoundCoord(hitPoint.x) - RoundLocation(_buildingPreview.Size.x),
 				y: RoundCoord(hitPoint.z) - RoundLocation(_buildingPreview.Size.x));

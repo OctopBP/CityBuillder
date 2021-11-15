@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Octop.CityBuilderGame
@@ -34,37 +35,26 @@ namespace Octop.CityBuilderGame
 			}
 
 			_gridView.SetGridMaterial();
-			_gridView.UpdateCells(cellsData);
+			_gridView.UpdateCells(_cells, _occupiedCells);
 		}
 
-		public void CalculateOccupiedCells(List<Building> buildings)
+		public void CalculateOccupiedCells(Building building)
 		{
-			_occupiedCells = new List<Vector2Int>();
-			foreach (Building building in buildings)
+			for (int x = 0; x < building.Size.x; x++)
 			{
-				for (int x = 0; x < building.Size.x; x++)
+				for (int y = 0; y < building.Size.y; y++)
 				{
-					for (int y = 0; y < building.Size.y; y++)
+					for (int i = -_gap; i <= _gap; i++)
 					{
-						for (int i = -_gap; i <= _gap; i++)
+						for (int j = -_gap; j <= _gap; j++)
 						{
-							for (int j = -_gap; j <= _gap; j++)
-							{
-								Vector2Int cellLocation = building.Location + new Vector2Int(x + i, y + j);
-								if (!_occupiedCells.Contains(cellLocation))
-									_occupiedCells.Add(cellLocation);
-							}
+							Vector2Int cellLocation = building.Location + new Vector2Int(x + i, y + j);
+							if (!_occupiedCells.Contains(cellLocation))
+								_occupiedCells.Add(cellLocation);
 						}
 					}
 				}
 			}
-		}
-
-		public bool CanBuildAndUpdateCells(Building building, List<Building> buildings)
-		{
-			bool canBuild = CanBuild(building, buildings);
-			UpdateCells(buildings);
-			return canBuild;
 		}
 
 		public bool CanBuild(Building building, List<Building> buildings)
